@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flower Shop</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/assets/user/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/style.css" type="text/css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> flower@gmail.com</li>
+                            <li>Miễn phí giao hàng với đơn hàng lớn hơn 500.000 VND</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__right" sec:authorize="!isAuthenticated()">
+                        <div class="header__top__right__social">
+                            <a th:href="@{/registers}">Đăng kí</a>
+                        </div>
+                        <div class="header__top__right__auth">
+                            <a th:href="@{/loginpage}">Đăng nhập</a>
+                        </div>
+                    </div>
+
+                    <div class="header__top__right" sec:authorize="isAuthenticated()">
+                        <div class="header__top__right__social">
+                            <span th:text="${#authentication.getPrincipal().getFirstName()}"></span>
+                        </div>
+                        <div class="header__top__right__auth">
+                            <a th:href="@{/logout}"><i class="fa fa-user"></i>Đăng xuất</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="http://localhost:8080"><img src="/assets/user/img/logo1.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+                        <li><a href="http://localhost:8080">Trang chủ</a></li>
+                        <li class="active"><a th:href="@{/Flower}">Sản phẩm</a></li>
+                        <li><a th:href="@{/Flower}">Chủ đề</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a th:href="@{/Flower(category=1)}">Hoa sinh nhật</a></li>
+                                <li><a th:href="@{/Flower(category=2)}">Hoa cưới</a></li>
+                                <li><a th:href="@{/Flower(category=3)}">Hoa cảm ơn</a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/Contact}">Liên hệ</a></li>
+                        <!--                            <li><a href="./contact.html">Contact</a></li>-->
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                        <li><a href="/shoppingcart"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                    </ul>
+                    <div class="header__cart__price"><span>$150.00</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</header>
+<!-- Header Section End -->
+
+<!-- Hero Section Begin -->
+<section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form th:action="@{/Flower}" method="get">
+                            <input name="name" type="text" placeholder="Bạn cần gì?">
+                            <button type="submit" class="site-btn">TÌM KIẾM</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+84 1900.0000</h5>
+                            <span>Hỗ trợ 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="breadcrumb-section set-bg" data-setbg="/assets/user/img/breadcrumb.png">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Giỏ hàng</h2>
+                    <div class="breadcrumb__option">
+                        <a href="./index.html">Trang chủ</a>
+                        <span>Giỏ hàng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="shoping__product">Sản phẩm</th>
+                            <th>Đơn giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item:${carts}">
+                            <td class="shoping__cart__item">
+                                <img height="100" th:src="${item.flower.getPhotosImagePath()}" alt="">
+                                <h5 th:text="${item.flower.flowerName}"></h5>
+                            </td>
+                            <td th:text="${#numbers.formatDecimal(item.flower.price,3,'POINT',0,'NONE')}+ ' VND'"
+                                class="shoping__cart__price">
+
+                            </td>
+                            <td th:text="${item.quantity}" class="shoping__cart__quantity">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <!--                                                <input type="text" value="1">-->
+                                    </div>
+                                </div>
+                            </td>
+                            <td th:text="${#numbers.formatDecimal(item.totalPayMent,3,'POINT',0,'NONE')}+ ' VND'"
+                                class="shoping__cart__total">
+
+                            </td>
+                            <td class="shoping__cart__item__close">
+                                <a th:href="@{/user/deleteCartItem(id=${item.id})}"><span class="icon_close"></span></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <a href="/Flower" class="primary-btn cart-btn">Tiếp tục mua hàng</a>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="shoping__checkout">
+                    <h5>Tổng thanh toán</h5>
+                    <ul>
+                        <li>Tổng cộng <span th:text="${#numbers.formatDecimal(totalCart,3,'POINT',0,'NONE')}+ ' VND'"></span></li>
+                    </ul>
+                    <a href="/checkout" class="primary-btn">Tiến hành thanh toán</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shoping Cart Section End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <div class="footer__about__logo">
+                        <a href="./index.html"><img src="/assets/user/img/logo1.png" alt=""></a>
+                    </div>
+                    <ul>
+                        <li>Địa chỉ: 573/6 Sư Vạn Hạnh, Phường 12, Quận 10, Thành phố Hồ Chí Minh, Việt Nam</li>
+                        <li>Số điện thoại: +65 11.188.888</li>
+                        <li>Email: flower@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                <div class="footer__widget">
+                    <h6>Tham gia ngay</h6>
+                    <p>Đăng ký Email để nhận thông báo sớm nhất về sản phảm của chúng tôi</p>
+                    <form action="#">
+                        <input type="text" placeholder="Enter your mail">
+                        <button type="submit" class="site-btn">Đăng ký</button>
+                    </form>
+                    <div class="footer__widget__social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer__copyright">
+                    <div class="footer__copyright__text">
+                        <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This
+                            template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                    <div class="footer__copyright__payment"><img src="/assets/user/img/payment-item.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Js Plugins -->
+<script src="/assets/user/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/user/js/bootstrap.min.js"></script>
+<script src="/assets/user/js/jquery.nice-select.min.js"></script>
+<script src="/assets/user/js/jquery-ui.min.js"></script>
+<script src="/assets/user/js/jquery.slicknav.js"></script>
+<script src="/assets/user/js/mixitup.min.js"></script>
+<script src="/assets/user/js/owl.carousel.min.js"></script>
+<script src="/assets/user/js/main.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flower Shop</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/assets/user/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/user/css/style.css" type="text/css">
+</head>
+
+<body>
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> flower@gmail.com</li>
+                            <li>Miễn phí giao hàng với đơn hàng lớn hơn 500.000 VND</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__right" sec:authorize="!isAuthenticated()">
+                        <div class="header__top__right__social">
+                            <a th:href="@{/registers}">Đăng kí</a>
+                        </div>
+                        <div class="header__top__right__auth">
+                            <a th:href="@{/loginpage}">Đăng nhập</a>
+                        </div>
+                    </div>
+
+                    <div class="header__top__right" sec:authorize="isAuthenticated()">
+                        <div class="header__top__right__social">
+                            <span th:text="${#authentication.getPrincipal().getFirstName()}"></span>
+                        </div>
+                        <div class="header__top__right__auth">
+                            <a th:href="@{/logout}"><i class="fa fa-user"></i>Đăng xuất</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="http://localhost:8080"><img src="/assets/user/img/logo1.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+                        <li><a href="http://localhost:8080">Trang chủ</a></li>
+                        <li class="active"><a th:href="@{/Flower}">Sản phẩm</a></li>
+                        <li><a th:href="@{/Flower}">Chủ đề</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a th:href="@{/Flower(category=1)}">Hoa sinh nhật</a></li>
+                                <li><a th:href="@{/Flower(category=2)}">Hoa cưới</a></li>
+                                <li><a th:href="@{/Flower(category=3)}">Hoa cảm ơn</a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/Contact}">Liên hệ</a></li>
+                        <!--                            <li><a href="./contact.html">Contact</a></li>-->
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                    </ul>
+                    <div class="header__cart__price"><span>$150.00</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</header>
+<!-- Header Section End -->
+
+<!-- Hero Section Begin -->
+<section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form th:action="@{/Flower}" method="get">
+                            <input name="name" type="text" placeholder="Bạn cần gì?">
+                            <button type="submit" class="site-btn">TÌM KIẾM</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+84 1900.0000</h5>
+                            <span>Hỗ trợ 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="breadcrumb-section set-bg" data-setbg="/assets/user/img/breadcrumb.png">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2 th:text="${flower.flowerName}"></h2>
+                    <div class="breadcrumb__option">
+                        <a href="./index.html">Trang chủ</a>
+                        <a href="./index.html">Sản phẩm</a>
+                        <span th:text="${flower.flowerName}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item">
+                        <img class="product__details__pic__item--large"
+                             th:src="${flower.getPhotosImagePath()}" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__text">
+                    <h3 th:text="${flower.flowerName}"></h3>
+                    <div class="product__details__rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                        <span>(18 lượt đánh giá)</span>
+                    </div>
+                    <div class="product__details__price" th:text="${#numbers.formatDecimal(flower.price,3,'POINT',0,'NONE')}+ ' VND'"></div>
+                    <p th:text="${flower.description}"> </p>
+                    <form action="/user/createCart" method="post">
+                    <div class="product__details__quantity">
+                        <div class="quantity">
+                            <div class="pro-qty">
+                                <input name="quantity" type="text" id="quantity" value="1">
+                            </div>
+                        </div>
+                    </div>
+                        <input hidden type="text" id="id" name="id" th:value="${flower.id}">
+                    <button  class="primary-btn" type="submit" >Thêm vào giỏ hàng</button>
+                    </form>
+                    <ul>
+<!--                        <li><b>Số lượng còn lại</b> <span th:text="${flower.inventoryNumber}"></span></li>-->
+                        <li><b>Giao hàng</b> <span>Giao hàng nhanh. <samp> Miễn phí chọn ngày giao
+                                        hàng</samp></span></li>
+                        <li><b>Màu sắc</b> <span th:text="${flower.color}"></span></li>
+                        <li><b>Chia sẻ tại</b>
+                            <div class="share">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="product__details__tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                               aria-selected="true">Mô tả</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <h6>Thông tin sản phẩm</h6>
+                                <p>Hoa hồng được mệnh danh là nữ hoàng trong các loài hoa. Thân cây nhỏ, màu xanh
+                                    được chia thành nhiều nhánh, cành. Lá cây hoa hồng có màu xanh thẫm, mỗi nhánh
+                                    cây có có rất nhiều lá đan xen, xung quanh có đường viền hình răng cưa. Gai là
+                                    một đặc điểm dễ thấy nhất của hoa hồng. Gai của hoa hồng nếu bị đâm vào tay sẽ
+                                    khá là đau đấy.</p>
+                                <p>Đầu mỗi cành cây là một chùm nụ nhỏ xinh nhìn từ xa như những ngọn nến nhỏ được
+                                    bao bọc trong lớp đài hoa xanh. Những cánh hoa mỏng tang như lụa, mềm như nhung,
+                                    màu đỏ thắm. Từng cánh hoa xếp chồng lên nhau từng tầng một, ôm ấp lấy nhụy vàng
+                                    ở bên trong. Hoa hồng có mùi thơm thoang thoảng, dễ chịu. Em có thể hít hà mãi
+                                    không thôi.</p>
+                                <p>Hoa hồng thu hút biết bao nhiêu là cô ong, chị bướm đến hút mật, rong chơi. Hoa
+                                    hồng kiêu sa giống như một cô công chúa của khu vườn. Nhất là những buổi sáng
+                                    sớm tinh mơ. Em rất thích ngắm hoa hồng buổi sáng. Những giọt sương long lanh
+                                    đọng trên từng cánh hoa hồng khiến cho bông hoa trở nên kiêu sa hơn bao giờ hết.
+                                </p>
+                                <p>Nhiều người nói "hoa hồng là biểu tượng của tình yêu" bởi vì vẻ đẹp dịu dàng mà
+                                    kiêu kỳ của nó. Với em, hoa hồng là biểu tượng của tình yêu thương của bà dành
+                                    cho cây cối. Những cánh hoa hồng bà ngắt trang trí trong nhà khiến nhà em đẹp
+                                    hơn biết bao nhiêu. Em rất thích hoa hồng và thường xuyên giúp bà nội tưới nước
+                                    cho cây.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer Section Begin -->
+<footer class="footer spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <div class="footer__about__logo">
+                        <a href="./index.html"><img src="/assets/user/img/logo1.png" alt=""></a>
+                    </div>
+                    <ul>
+                        <li>Địa chỉ: 573/6 Sư Vạn Hạnh, Phường 12, Quận 10, Thành phố Hồ Chí Minh, Việt Nam</li>
+                        <li>Số điện thoại: +65 11.188.888</li>
+                        <li>Email: flower@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                <div class="footer__widget">
+                    <h6>Tham gia ngay</h6>
+                    <p>Đăng ký Email để nhận thông báo sớm nhất về sản phảm của chúng tôi</p>
+                    <form action="#">
+                        <input type="text" placeholder="Enter your mail">
+                        <button type="submit" class="site-btn">Đăng ký</button>
+                    </form>
+                    <div class="footer__widget__social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer__copyright">
+                    <div class="footer__copyright__text">
+                        <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This
+                            template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                    <div class="footer__copyright__payment"><img src="/assets/user/img/payment-item.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Js Plugins -->
+<script src="/assets/user/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/user/js/bootstrap.min.js"></script>
+<script src="/assets/user/js/jquery.nice-select.min.js"></script>
+<script src="/assets/user/js/jquery-ui.min.js"></script>
+<script src="/assets/user/js/jquery.slicknav.js"></script>
+<script src="/assets/user/js/mixitup.min.js"></script>
+<script src="/assets/user/js/owl.carousel.min.js"></script>
+<script src="/assets/user/js/main.js"></script>
+
+
+</body>
+
+</html>
